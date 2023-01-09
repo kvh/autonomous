@@ -1,0 +1,26 @@
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+description = "Patterns OS - Operating System for Machine Intelligences"
+license = "BSD-3"
+name = "patterns-os"
+packages = [{include = "patterns"}]
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+semver = "^2.13.0"
+common-model = "^0.5.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = ">= 3.8.1"
+isort = "^4.3.21"
+pre-commit = "^2.1.1"
+pytest = "^6.2.5"
+pytest-cov = "^2.8.1"
+requests-mock = "^1.9.3"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
