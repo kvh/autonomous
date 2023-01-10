@@ -52,12 +52,3 @@ def on_update(table_config: TableConfig):
         register_edge(table_config, fn_config, trigger_type)
 
     return _on_update
-
-
-def execute_function(graph, fn, event):
-    with patch_objects() as event_collector:
-        call_function(event, fn)
-
-    for event in event_collector:
-        downstream = graph.get_out_edges(event.table)
-        execute_function(downstream, event)

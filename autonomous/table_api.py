@@ -39,12 +39,15 @@ class DatabaseApi:
         else:
             name = metadata.name
         return name
-    
+
     def create_table(self, metadata: TableMetadata, schema: Schema):
         memory_db[self.db.url][self.format_full_name(metadata)] = []
 
     def bulk_insert(self, metadata: TableMetadata, records: Records):
-        memory_db[self.db.url][self.format_full_name(metadata)].append(records)
+        memory_db[self.db.url][self.format_full_name(metadata)].extend(records)
+
+    def read(self, metadata: TableMetadata) -> Records:
+        return memory_db[self.db.url][self.format_full_name(metadata)]
 
 
 def infer_schema_from_records(*args):
@@ -53,6 +56,7 @@ def infer_schema_from_records(*args):
 
 def get_database_api(db: Database):
     return DatabaseApi(db)
+
 
 class TableAction(str, Enum):
     Update = "update"
@@ -72,6 +76,13 @@ def append_to_table(table: DatabaseTable, records: Records):
     api.bulk_insert(table.metadata, records)
 
 
+def read_from_table(table: DatabaseTable) -> Records:
+    if not table.exists:
+        return []
+    api = get_database_api(table.database)
+    return api.read(table.metadata)
+
+
 @dataclass
 class DatabaseTable:
     metadata: TableMetadata
@@ -83,4 +94,3 @@ class DatabaseTable:
 
     def get_key(self):
         return self.metadata.get_key()
-
