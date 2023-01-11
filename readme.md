@@ -1,6 +1,6 @@
-![Anton](static/a1.png)
-![Anton](static/a2.png)
-![Anton](static/a3.png)
+<p align="center">
+<img src="static/a3.png"/>
+</p>
 
 # Anton - A web framework for autonomous apps
 
@@ -29,42 +29,6 @@ Built from best-of-breed software:
 - Nomad or Kubernetes deployments
 - Postgres
 - Pydantic schemas
-
-## Theory of Autonomous Web Applications
-
-All applications have a data -> decision -> action loop. For human-driven apps, this loop 
-involves pulling data from a database, displaying it succinctly in a UI, accepting input via
-mouse or keyboard, and then updating the database in response to user input. This typical app 
-experience is powered by a Model-View-Controller (MVC) framework that handles the steps of storing 
-data, displaying it, and processing user input.
-
-Autonomous applications have the same loop, but different constraints -- the decision is handled
-in software by programmatic logic or artificial intelligence. There is no need for displaying
-information succinctly in a UI or providing limited input elements. The biggest challenges
-switch to being those of context -- providing the AI with all the relevant data to make an
-informed decision -- a human user has a huge body of implicit knowledge about the task at
-hand -- and giving them the capability to take the correct action in the right external system.
-
-This re-orients the application framework away from storing, serving, 
-and responding to user input, and to a framework that prioritizes Sensing, Cognition, and Action 
-(SCA).
-
-SCA ("skah") frameworks like Anton are built ingest and operate with disparate and large data 
-sources, process them with the most powerful data tools available, run large and complex
-prompt / completion pipelines, take secure action in external systems, and checkpoint
-with human decision makers via common communication channels to manually clear actions.
-
-
-|  | Human-driven App | Autonomous App |
-| --- | --- | --- |
-| Actor | Human | AI, software |
-| App Inputs | Mouse, keyboard | Event and data streams |
-| App Outputs | Screen | External triggers / APIs, data |
-| Execution | On-demand | Reactive - “always on” |
-| UI/UX | Visual design and interactions | Prompt design, data cleaning and standardization |
-| Permissioning | User accounts and permissions | API keys, secrets |
-| Cross App coord. and comm. | Human operator | Semantically-typed data streams |
-
 
 ## Quick start example
 
@@ -176,3 +140,38 @@ Storages online:
   postgres://....
   s3://...
 ```
+
+## Autonomous Web Applications
+
+All applications have a data -> decision -> action loop. For human-driven apps, this loop 
+involves pulling data from a database, displaying it succinctly in a UI, accepting input via
+mouse or keyboard, and then updating the database in response to user input. This typical app 
+experience is powered by a Model-View-Controller (MVC) framework that handles the steps of storing 
+data, displaying it, and processing user input.
+
+Autonomous applications have the same loop, but different constraints -- the decision is handled
+in software by programmatic logic or artificial intelligence. There is no need for displaying
+information succinctly in a UI or providing limited input elements. The biggest challenges
+switch to being those of context -- providing the AI with all the relevant data to make an
+informed decision -- a human user has a huge body of implicit knowledge about the task at
+hand -- and giving them the capability to take the correct action in the right external system.
+
+This re-orients the application framework away from storing, serving, 
+and responding to user input, and to a framework that prioritizes Sensing, Cognition, and Action 
+(SCA).
+
+SCA ("skah") frameworks like Anton are built ingest and operate with disparate and large data 
+sources, process them with the most powerful data tools available, run large and complex
+prompt / completion pipelines, take secure action in external systems, and checkpoint
+with human decision makers via common communication channels to manually clear actions.
+
+
+|  | Human-driven App | Autonomous App |
+| --- | --- | --- |
+| Actor | Human | AI, software |
+| App Inputs | Mouse, keyboard | Event and data streams |
+| App Outputs | Screen | External triggers / APIs, data |
+| Execution | On-demand | Reactive - “always on” |
+| UI/UX | Visual design and interactions | Prompt design, data cleaning and standardization |
+| Permissioning | User accounts and permissions | API keys, secrets |
+| Cross App coord. and comm. | Human operator | Semantically-typed data streams |
