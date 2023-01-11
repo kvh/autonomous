@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Callable
 
 from pydantic import BaseModel
+from fastapi import Request
 
 from table_api import (
     TableMetadata,
@@ -27,7 +28,14 @@ class EdgeConfig(BaseModel):
     trigger_type: TriggerType
 
 
+class EndpointConfig(BaseModel):
+    fn_name: str
+    path: str
+    method: str = "POST"
+
+
 class Graph(BaseModel):
+    endpoints: dict[str, EndpointConfig] = {}
     functions: dict[str, Callable] = {}
     tables: dict[str, TableMetadata] = {}
     edges: list[EdgeConfig] = []
@@ -96,6 +104,7 @@ class Event:
     table: Table | None = None
     action: TableAction | None = None
     payload: dict | None = None
+    request: Request | None = None
 
 
 @dataclass
@@ -114,8 +123,25 @@ def get_current_context():
 
 
 def manual(fn: Callable):
-    get_current_graph()
+    graph = get_current_graph()
+    graph.functions[fn.__name__] = fn
     return fn
+
+
+def post(path: str):
+    if not isinstance(path, str):
+        raise TypeError(path)
+
+    def _register(fn: Callable):
+        async def _endpoint_wrapper(request: Request):
+            return fn(Event(request=request))
+
+        graph = get_current_graph()
+        graph.endpoints[path] = EndpointConfig(fn_name=fn.__name__, path=path)
+        graph.functions[fn.__name__] = _endpoint_wrapper
+        return _endpoint_wrapper
+
+    return _register
 
 
 def execute_function(graph: Graph, fn: Callable, event):
