@@ -2,9 +2,9 @@
 <img src="static/a3.png"/>
 </p>
 
-# Anton - A web framework for autonomous apps
+# Autonomous - A web framework for data-driven apps
 
-Anton is a high-performance (10k events per second) production-grade framework for 
+Autonomous is a high-performance (10k events per second) production-grade framework for 
 building autonomous data-driven applications. Autonomous apps are for artificial intelligences what 
 MVC apps are for humans. Anton is used to power production or operational data-driven pipelines, 
 automations, and applications.
@@ -74,17 +74,17 @@ def handle_new_slack_mentions(new_records: Records):
         prompts.append({"prompt": prompt})
 
 
-# Use pre-built completion function
+# Use pre-built completion function to react to new prompts
 prompts.on_new_records(OpenAiCompletion(completions, api_key="xxxx", temperature=0.8))
 
 
-# Use pre-built slack component to send message
+# Use pre-built slack component to send completions as messages
 completions.on_new_records(
     SlackPostMessage(oauth_token="xxxx", message_template="{completion}")
 )
 
 
-# Capture reactions to the posts
+# Capture reactions to the posts for feedback modeling
 reactions_webhook = Webhook("/slack-reactions", slack_reactions)
 
 
