@@ -1,3 +1,7 @@
+![Anton](static/a1.png)
+![Anton](static/a2.png)
+![Anton](static/a3.png)
+
 # Anton - A web framework for autonomous apps
 
 Anton is a high-performance (1 billion automations per second) production-grade framework for 
