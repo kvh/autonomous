@@ -72,9 +72,9 @@ It also uses the library of pre-built event handlers.
 
 slack-ai-bot/main.py
 ```python
-from autonomous import cron, post, Records, Table, Webhook
-from autonomous_components.vendor.openai.cognition import OpenAiCompletion
-from autonomous_components.vendor.slack.action import SlackPostMessage
+from anton import cron, post, Records, Table, Webhook
+from anton_components.vendor.openai.cognition import OpenAiCompletion
+from anton_components.vendor.slack.action import SlackPostMessage
 
 
 # Define reactive Tables
