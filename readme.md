@@ -4,7 +4,7 @@
 
 # Anton - A web framework for autonomous apps
 
-Anton is a high-performance (1 billion automations per second) production-grade framework for 
+Anton is a high-performance (10k events per second) production-grade framework for 
 building autonomous data-driven applications. Autonomous apps are for artificial intelligences what 
 MVC apps are for humans. Anton is used to power production or operational data-driven pipelines, 
 automations, and applications.
