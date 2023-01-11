@@ -1,24 +1,27 @@
-## Anton - A web framework for autonomous apps
+# Anton - A web framework for autonomous apps
 
 Anton is a high-performance (1 billion automations per second) production-grade framework for 
 building autonomous data-driven applications. Autonomous apps are for artificial intelligences what 
-MVC apps are for humans. 
+MVC apps are for humans. Anton is used to power production or operational data-driven pipelines, 
+automations, and applications.
 
-### Killer features out of the box:
+Key features out of the box:
 
 - Reactive, data-driven processing via http, webhooks, and schedules
 - Huge ecosystem of pre-built event sources and actions
 - Powerful AI models, via api or self-hosted
 - Oauth service to connect with over 100+ services quickly
 - One-command deployment to local or cloud
-- First class support for data processing and ETL
-- Live request/response support
+- Single or Multi-tenant deployments for customer data isolation
+- First-class support for data processing and ETL (SQL support, native dbt integration)
+- High performance (async through-put)
+- Semantic and structural data typing via Pydantic, allowing modular event handling and code re-use
 
-### Built from best-of-breed software:
+Built from best-of-breed software:
 
 - Fastapi
 - Python3 async
-- GPT-3, GPT-J, support for sota and open-source LLMs
+- Support for state-of-the-art AI and LLMs
 - Nomad or Kubernetes deployments
 - Postgres
 - Pydantic schemas
