@@ -5,15 +5,16 @@
 # Autonomous - A web framework for data-driven apps
 
 Autonomous is a high-performance (10k events per second) production-grade framework for 
-building autonomous data-driven applications. Autonomous apps are for artificial intelligences what 
-MVC apps are for humans. Anton is used to power production or operational data-driven pipelines, 
-automations, and applications.
+building autonomous data-driven web applications. Autonomous apps are for artificial intelligences 
+what MVC apps are for humans. Autonomous is used to power production or operational data-driven 
+pipelines, automations, and applications.
 
 Key features out of the box:
 
 - Reactive, data-driven processing via http, webhooks, and schedules
+- Clean abstracted APIs to databases, data warehouses, data lakes, and blob stores
 - Huge ecosystem of pre-built event sources and actions
-- Powerful AI models, via api or self-hosted
+- Native support for AI and LLM models, via api or self-hosted
 - Oauth service to connect with over 100+ services quickly
 - One-command deployment to local or cloud
 - Single or Multi-tenant deployments for customer data isolation
@@ -38,11 +39,12 @@ requests it also responds to data events on our defined Tables.
 
 It also uses the library of pre-built event handlers.
 
-slack-ai-bot/main.py
+`main.py`
+
 ```python
-from anton import cron, post, Records, Table, Webhook
-from anton_components.vendor.openai.cognition import OpenAiCompletion
-from anton_components.vendor.slack.action import SlackPostMessage
+from autonomous import cron, post, Records, Table, Webhook
+from autonomous_components.vendor.openai.cognition import OpenAiCompletion
+from autonomous_components.vendor.slack.action import SlackPostMessage
 
 
 # Define reactive Tables
@@ -97,7 +99,8 @@ def rebuild_model():
 Deploying our app is as simple as filling out our deployment configuration file with the desired
 resources and running the deploy command.
 
-slack-ai-bot/autonomous.json
+`autonomous.json`
+
 ```json
 {
     "storages": [
@@ -160,7 +163,7 @@ This re-orients the application framework away from storing, serving,
 and responding to user input, and to a framework that prioritizes Sensing, Cognition, and Action 
 (SCA).
 
-SCA ("skah") frameworks like Anton are built ingest and operate with disparate and large data 
+SCA ("skah") frameworks like Autonomous are built ingest and operate with disparate and large data 
 sources, process them with the most powerful data tools available, run large and complex
 prompt / completion pipelines, take secure action in external systems, and checkpoint
 with human decision makers via common communication channels to manually clear actions.
