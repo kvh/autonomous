@@ -12,7 +12,7 @@ pipelines, automations, and applications.
 Key features out of the box:
 
 - Reactive, data-driven processing via http, webhooks, and schedules
-- Clean abstracted APIs to databases, data warehouses, data lakes, and blob stores
+- Powerful Table abstraction for high-performance, high-volume data operations across any database, data warehouse, or S3
 - Huge ecosystem of pre-built event sources and actions
 - Native support for AI and LLM models, via api or self-hosted
 - Oauth service to connect with over 100+ services quickly
