@@ -1,5 +1,5 @@
 <p align="center">
-<img src="static/a3.png"/>
+<img src="static/autonomous.svg"/>
 </p>
 
 # Autonomous - A web framework for data-driven apps
