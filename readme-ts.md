@@ -35,57 +35,51 @@ requests it also responds to data events on our defined Tables.
 
 It also uses the library of pre-built event handlers.
 
-`main.py`
+`main.ts`
 
-```python
-from autonomous import cron, post, Records, Table, Webhook
-from autonomous_components.vendor.openai.cognition import OpenAiCompletion
-from autonomous_components.vendor.slack.action import SlackPostMessage
-
-
-# Define reactive Tables
-slack_mentions = Table("slack_mentions")
-prompts = Table("completions")
-completions = Table("completions")
-slack_responses = Table("slack_responses")
-slack_reactions = Table("slack_responses")
+```typescript
+import { cron, post, Records, Table, Webhook } from "autonomous";
+import { OpenAiCompletion } from "autonomous-components";
+import { SlackPostMessage } from "autonomous-components";
 
 
-# Handle incoming Slack mentions for our bot
-@post("/slack-mentions")
-def handle_slack_mentions(request: Request) -> int:
-    payload = request.json()
-    slack_mentions.append({"timestamp": datetime.now(timezone.utc), "payload": payload})
-    return 200
+// Define reactive Tables
+const slack_mentions = Table("slack_mentions");
+const prompts = Table("completions");
+const completions = Table("completions");
+const slack_responses = Table("slack_responses");
+const slack_reactions = Table("slack_responses");
 
 
-# React to mentions in real-time
-@slack_mentions.on_new_records
-def handle_new_slack_mentions(new_records: Records):
-    for record in new_records:
-        slack_text = record["payload"]["event"]["text"]
-        prompt = f"Respond to the following message with a friendly reply: {slack_text}"
-        prompts.append({"prompt": prompt})
+// Handle incoming Slack mentions for our bot
+post("/slack-mentions", (request: Request) => {
+  const payload = request.json();
+  slack_mentions.append({ timestamp: now(), payload: payload });
+  return 200;
+});
 
+// React to mentions in real-time
+slack_mentions.on_new_records((newRecords: Records) => {
+  newRecords.each((record) => {
+    const slack_text = record["payload"]["event"]["text"];
+    const prompt = `Respond to the following message with a friendly reply: {slack_text}`;
+    prompts.append({ prompt: prompt });
+  });
+});
 
-# Use pre-built completion function to react to new prompts
-prompts.on_new_records(OpenAiCompletion(completions, api_key="xxxx", temperature=0.8))
+// Use pre-built completion function to react to new prompts
+prompts.on_new_records(OpenAiCompletion(completions, "xxxx", 0.8));
 
+// Use pre-built slack component to send completions as messages
+completions.on_new_records(SlackPostMessage("xxxx", "{completion}"));
 
-# Use pre-built slack component to send completions as messages
-completions.on_new_records(
-    SlackPostMessage(oauth_token="xxxx", message_template="{completion}")
-)
+// Capture reactions to the posts for feedback modeling
+const reactions_webhook = Webhook("/slack-reactions", slack_reactions);
 
-
-# Capture reactions to the posts for feedback modeling
-reactions_webhook = Webhook("/slack-reactions", slack_reactions)
-
-
-# Rebuild the fine-tuned model once a day
-@cron.daily
-def rebuild_model():
-    build_response_model(completions, slack_reactions)
+// Rebuild the fine-tuned model once a day
+cron.daily((event) => {
+  build_response_model(completions, slack_reactions);
+});
 ```
 
 Deploying our app is as simple as filling out our deployment configuration file with the desired
@@ -110,7 +104,7 @@ resources and running the deploy command.
     "runtimes": [
         {
             "dockerfile": "docker/DOCKERFILE",
-            "name": "custom-python"
+            "name": "custom-node"
         }
     ],
   "deployment": {
