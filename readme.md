@@ -2,7 +2,7 @@
 <img src="static/autonomous.svg"/>
 </p>
 
-# Autonomous - A web framework for reactive data apps
+# Autonomous - A web framework for reactive data-driven apps
 
 Autonomous is a high-performance (10k events per second) production-grade framework for 
 building reactive data-driven web applications. Autonomous apps are for artificial intelligences 
