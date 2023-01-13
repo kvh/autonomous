@@ -2,34 +2,30 @@
 <img src="static/autonomous.svg"/>
 </p>
 
-# Autonomous - A web framework for data-driven apps
+# Autonomous - A web framework for reactive data-driven apps
 
 Autonomous is a high-performance (10k events per second) production-grade framework for 
-building autonomous data-driven web applications. Autonomous apps are for artificial intelligences 
-what MVC apps are for humans. Autonomous is used to power production or operational data-driven 
-pipelines, automations, and applications.
+building reactive data-driven web applications. Autonomous apps are for artificial intelligences 
+what MVC apps are for humans, with a focus on events and api actions instead of UI and user input.
+Autonomous is used to power production or operational pipelines, automations, and applications such as:
+
+- GPT-powered docs search
+- Re-enforcement learning Slack bots
+- Order flow processing and management
+- High-volume, real-time marketing data pipelines
+- Algorithmic trading bots
 
 Key features out of the box:
 
 - Reactive, data-driven processing via http, webhooks, and schedules
-- Powerful Table abstraction for high-performance, high-volume data operations across any database, data warehouse, or S3
+- Powerful data abstractions for high-performance, high-volume data operations across any database, data warehouse, or S3
+- One-command deployment to local or cloud with kubernetes or nomad
 - Huge ecosystem of pre-built event sources and actions
 - Native support for AI and LLM models, via api or self-hosted
 - Oauth service to connect with over 100+ services quickly
-- One-command deployment to local or cloud
-- Single or Multi-tenant deployments for customer data isolation
-- First-class support for data processing and ETL (SQL support, native dbt integration)
+- Single or Multi-tenant deployments for data isolation
 - High performance (async through-put)
-- Semantic and structural data typing via Pydantic, allowing modular event handling and code re-use
-
-Built from best-of-breed software:
-
-- Fastapi
-- Python3 async
-- Support for state-of-the-art AI and LLMs
-- Nomad or Kubernetes deployments
-- Postgres
-- Pydantic schemas
+- Semantic and structural data typing, allowing modular event handling and code re-use
 
 ## Quick start example
 
@@ -61,10 +57,6 @@ def handle_slack_mentions(request: Request) -> int:
     payload = request.json()
     slack_mentions.append({"timestamp": datetime.now(timezone.utc), "payload": payload})
     return 200
-
-
-# Above is equivalent to the following shorthand:
-# mentions_webhook = Webhook("/slack-mentions", slack_mentions)
 
 
 # React to mentions in real-time
