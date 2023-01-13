@@ -104,8 +104,7 @@ def handle_slack_mentions(request: Request) -> int:
 #....
 ```
 
-Deploying our app is as simple as filling out our deployment configuration file with the desired
-resources and running the deploy command.
+To deploy, configure our app with the desired resources:
 
 `autonomous.json`
 
@@ -135,6 +134,8 @@ resources and running the deploy command.
   }
 }
 ```
+
+And then run:
 
 ```sh
 $ autonomous deploy app
@@ -183,6 +184,6 @@ with human decision makers via common communication channels to manually clear a
 | App Inputs | Mouse, keyboard | Event and data streams |
 | App Outputs | Screen | External triggers / APIs, data |
 | Execution | On-demand | Reactive - “always on” |
-| UI/UX | Visual design and interactions | Prompt design, data cleaning and standardization |
+| UI/UX | Visual design and interactions | Prompt design, data standardization, dialogue |
 | Permissioning | User accounts and permissions | API keys, secrets |
 | Cross App coord. and comm. | Human operator | Semantically-typed data streams |
