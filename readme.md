@@ -6,15 +6,16 @@
 
 Autonomous is a framework for building and deploying complex applications to the cloud.
 Autonomous lets you run and deploy web apps, task queues, massively parallel compute jobs,
-machine learning models, GPUs, and much more with a single unified framework for code and infrastructure.
+machine learning models, GPUs, streaming data flows, and much more with a single unified framework for code and infrastructure.
 
 Things you can build with Autonomous:
 
-- Stability AI slack bot
-- Order flow processing and management
+- Async product and operations workflows
 - Credit risk underwriting application
+- Order flow processing and management
 - Algorithmic trading bot
 - Content moderation pipeline
+- Stability AI slack bot
 
 Key features out of the box:
 
@@ -23,12 +24,18 @@ Key features out of the box:
 - Reactive, data-driven processing via http, webhooks, and schedules
 - High performance configuration (10k events per second)
 - Utilize GPUs for AI models
-- Built with best-in-class open source -- Docker, Kubernetes, Node.js, BullMQ
+
+Built from best-in-class open-source components:
+
+- Node.js
+- Golang
+- Temporal
+- Kubernetes
 
 ## Quick start example
 
 ```typescript
-import { App, TableStore, FileStore, images} from "autonomous";
+import { App, TableStore, FileStore, images, Sleep} from "autonomous";
 import { StabilityAi} from "autonomous-images";
 
 
@@ -55,9 +62,20 @@ app.function("handle-slack-mention", {gpu: "T4", mem: "128G", image: StabilityAi
     const prompt = message["event"]["text"];
     const image = stabilityAiImage(prompt);
     images.add(key, image)
-    respondInSlack(message, image)
-  });
+    response = respondInSlack(message, image)
+    app.call("handle-feedback", response)
 })
+
+
+// Durable functions
+app.function("handle-feedback", (response) => {
+  // Wait 2 days, then solicit feedback
+  Sleep(2 * 24 * 3600)
+  if (noFeedback(response)) {
+    solicitFeedbackInSlack(response)
+  }
+})
+
 
 // Rebuild the fine-tuned model once a day
 app.cron.daily((event) => {
@@ -113,6 +131,9 @@ def handle_slack_mentions(request: Request) -> int:
 Autonomous is built to compliment a JAMstack deployment, powering the backend processing and logic for data
 and AI intensive applications.
 
+### Autonomous + Next.js
 
+Autonomous is built to compliment a JAMstack deployment, powering the backend processing and logic for data
+and AI intensive applications.
 
 
