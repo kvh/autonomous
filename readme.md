@@ -78,7 +78,7 @@ app.function("handle-feedback", (response) => {
 
 
 // Rebuild the fine-tuned model once a day
-app.cron.daily((event) => {
+app.cron("0 0 * * *", (event) => {
   buildResponseModel();
 });
 ```
